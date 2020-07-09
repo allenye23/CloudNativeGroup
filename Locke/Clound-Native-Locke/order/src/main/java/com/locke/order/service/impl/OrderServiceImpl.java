@@ -5,6 +5,7 @@ import com.locke.order.dao.OrderDao;
 import com.locke.order.entity.Order;
 import com.locke.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -22,6 +23,7 @@ public class OrderServiceImpl  implements OrderService {
     }
 
     @Override
+    @Cacheable(value = "orders")
     public Order getOne(int id) {
         Optional<Order> byId = orderDao.findById(id);
 
