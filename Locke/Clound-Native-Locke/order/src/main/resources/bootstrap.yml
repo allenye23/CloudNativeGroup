@@ -1,0 +1,42 @@
+spring:
+    application:
+        name: cloud-order-server
+    datasource:
+        url: jdbc:mysql://localhost:3306/locker
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+        password: root
+        type: org.springframework.jdbc.datasource.DriverManagerDataSource
+    jpa:
+        database-platform: org.hibernate.dialect.MySQL5Dialect
+        show-sql: true
+        hibernate:
+            ddl-auto: update
+#mybatis:
+#    configuration:
+#        # 下划线转驼峰命名法
+#        map-underscore-to-camel-case: true
+#        # 打印日志
+#        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    mapperLocations: classpath*:mapper/*Mapper.xml
+#    type-aliases-package: com.locke.order.entity
+
+server:
+    port: 8881
+    tomcat:
+        uri-encoding: utf-8
+
+eureka:
+    instance:
+        #服务地址
+        hostname: localhost
+    server:
+        #开启注册中心的保护机制，默认是开启
+        enable-self-preservation: true
+    client:
+        fetch-registry: false
+        #不向注册中心注册自己
+        register-with-eureka: true
+        #注册中心路径，如果有多个eureka server，在这里需要配置其他eureka server的地址，用","进行区分，如"http://address:8888/eureka,http://address:8887/eureka"
+        serviceUrl:
+            defaultZone: http://localhost:8880/eureka
