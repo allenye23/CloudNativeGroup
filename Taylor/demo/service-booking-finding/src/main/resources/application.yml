@@ -1,0 +1,43 @@
+server:
+  port: 8765
+
+spring:
+  application:
+    name: service-booking-finding
+  datasource:
+    username: root
+    password: TaylorYan123
+    url: jdbc:mysql://localhost:3306/Searching
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  activemq:
+    broker-url: tcp://localhost:61616
+    in-memory: true
+    pool:
+      enabled: false
+    user: admin
+    password: admin
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    timeout: 500
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "*"
+  endpoint:
+    health:
+      show-details: always
