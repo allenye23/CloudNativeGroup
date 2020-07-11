@@ -1,0 +1,52 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: service-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+      - id: service-booking-creation
+        uri: lb://SERVICE-BOOKING-CREATION
+        predicates:
+          - Path=/booking/**
+        filters:
+          - StripPrefix=1
+      - id: service-booking-finding
+        uri: lb://SERVICE-BOOKING-FINDING
+        predicates:
+          - Path=/finding/**
+        filters:
+          - StripPrefix=1
+      default-filters:
+      - name: Hystrix
+        args:
+          name: fallbackcmd
+          fallbackUri: forward:/fallback
+
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "*"
+  endpoint:
+    health:
+      show-details: always
+
