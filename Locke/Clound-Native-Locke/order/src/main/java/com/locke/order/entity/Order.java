@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Setter
 @Entity
 @Table(name = "t_order")
-public class Order  implements Serializable {
+public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,11 @@ public class Order  implements Serializable {
     private String orderName;
 
     @JsonProperty
-    @Column( name = "order_quantity")
+    @Column(name = "order_quantity")
     private int quantity;
+
+    @JsonProperty
+    @Column(name = "order_address", nullable = false)
+    private String address;
 
 }

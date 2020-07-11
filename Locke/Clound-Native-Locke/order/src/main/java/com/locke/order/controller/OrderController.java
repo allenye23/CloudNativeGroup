@@ -27,7 +27,7 @@ public class OrderController {
 
 
     @GetMapping("/{id}")
-    public ResponseMessage getOne(@PathVariable int id){
+    public ResponseMessage getOne(@PathVariable int id) {
 
         Order order = this.orderService.getOne(id);
 

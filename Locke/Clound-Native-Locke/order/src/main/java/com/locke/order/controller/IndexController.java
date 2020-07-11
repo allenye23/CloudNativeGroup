@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController {
 
 
-    @RequestMapping(value = "/test",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseMessage index(){
+    @RequestMapping(value = "/test", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseMessage index() {
         return new ResponseMessage("Hello World!");
     }
 
