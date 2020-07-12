@@ -33,3 +33,5 @@ packages/
 /Locke/.idea/*
 */.idea/*
 */.idea/*
+/Louis/server/node_modules/
+/.idea/

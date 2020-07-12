@@ -1,0 +1,27 @@
+server:
+  port: 8202
+spring:
+  application:
+    name: logistics-service
+  rabbitmq:
+    host: localhost # rabbitmq的连接地址
+    port: 5672 # rabbitmq的连接端口号
+    virtual-host: /mall # rabbitmq的虚拟host
+    username: mall # rabbitmq的用户名
+    password: mall # rabbitmq的密码
+  cloud:
+    config:
+      server:
+        git: #配置存储配置信息的Git仓库
+          uri: https://github.com/haaohao/gitConfig.git
+          username: macro
+          password: 123456
+          clone-on-start: true #开启启动时直接从git获取配置
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8006/eureka/
+service-url:
+  order-service: http://order-service

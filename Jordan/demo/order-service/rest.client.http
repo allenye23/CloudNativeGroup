@@ -1,0 +1,7 @@
+GET http://localhost:8081/brand/listAll
+
+###
+DELETE http://localhost:8081/brand/delete/1
+
+###
+GET http://localhost:8101/order/sendQueue
