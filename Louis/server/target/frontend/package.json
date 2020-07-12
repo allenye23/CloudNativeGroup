@@ -1,0 +1,8 @@
+{
+  "name": "@vaadin/flow-deps",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@vaadin/vaadin-ordered-layout": "1.1.0"
+  }
+}
