@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: order-service
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url: jdbc:mysql://localhost:13306/order?serverTimezone=GMT
+    username: root
+    password: root
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      acks: all
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8082/eureka/
+    healthcheck:
+      enabled: true

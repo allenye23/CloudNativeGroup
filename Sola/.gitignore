@@ -1,0 +1,5 @@
+**/.idea
+**.iml
+out/**
+/order-service/target/**
+/logistics-service/target/**
