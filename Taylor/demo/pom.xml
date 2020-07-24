@@ -19,6 +19,7 @@
     <module>service-booking-creation</module>
     <module>service-booking-finding</module>
     <module>service-gateway</module>
+    <module>service-solace</module>
   </modules>
 
   <properties>
