@@ -162,6 +162,8 @@ This feature enables queues to participate equally in **point-to-point** and **p
 ### Adding Topic Subscriptions to Queues
 
 ```
+solace(configure)# message-spool message-vpn <vpn-name>
+solace(configure/message-spool)# queue <name> 
 solace(configure/message-spool/queue)# subscription topic <topic>
 ```
 
