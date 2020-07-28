@@ -19,7 +19,7 @@
 
 - subscriber: the ultimate receiver of the message (also called a consumer)
 
-  ![what's messaging](C:\Users\18813\IdeaProjects\CloudNativeGroup\CloudNativeBook\concept_pubsub_01.gif)
+  ![what's messaging](./concept_pubsub_01.gif)
 
 ### Destination
 
@@ -31,11 +31,11 @@ Messages can be classified as `Persistent (Guaranteed)` or `Non-Persistent (Dire
 
 Direct: (high-speed, loss toleratant)
 
-![](C:\Users\18813\IdeaProjects\CloudNativeGroup\CloudNativeBook\direct-messaging-300x118.png)
+![](./direct-messaging-300x118.png)
 
 Guaranteed: (ack)
 
-![](C:\Users\18813\IdeaProjects\CloudNativeGroup\CloudNativeBook\guaranteed_message_pub_pattern.png)
+![](./guaranteed_message_pub_pattern.png)
 
 
 
@@ -49,7 +49,7 @@ Guaranteed: (ack)
 
 ### Publish-Subscribe
 
-![](C:\Users\18813\IdeaProjects\CloudNativeGroup\CloudNativeBook\pub_sub.png)
+![](./pub_sub.png)
 
 #### Message Replay
 
@@ -65,7 +65,7 @@ solace(admin)# message-spool message-vpn <vpn-name>
 
 #### Non-Exclusive Consumption ( [Queue Access Types](https://docs.solace.com/PubSub-Basics/Endpoints.htm#Queue_Access_Types))
 
-![](C:\Users\18813\IdeaProjects\CloudNativeGroup\CloudNativeBook\ptp_multi_consumers.png)
+![](./ptp_multi_consumers.png)
 
 #### Endpoint Durability
 
@@ -75,7 +75,7 @@ EMS: static, dynamic
 
 ### Request-Reply
 
-![](C:\Users\18813\IdeaProjects\CloudNativeGroup\CloudNativeBook\request_reply.png)
+![](./request_reply.png)
 
 
 
@@ -85,7 +85,7 @@ EMS: static, dynamic
 
 segregation of topic space and clients
 
-![](C:\Users\18813\IdeaProjects\CloudNativeGroup\CloudNativeBook\Msg_VPN.png)
+![](./Msg_VPN.png)
 
 Each event broker has a Message VPN named `default`. 
 
@@ -97,22 +97,86 @@ Message VPN bridges
 
 ## Clients
 
+To establish a client connection, client applications or devices connect using a specific **Client Username account**.
 
+![](./client_connection_example.png)
+
+Each Client Username is associated with a Client Profile and an ACL profile. 
+
+* Client Profile : resource allocation, tuning TCP connection parameters, enabling persistent messaging capabilities
+* ACL Profile : defines the Client’s ability to connect based on its IP address
 
 
 
 ## Topics
 
+### **Topic Endpoints != Topics**
+
+* Topics are a message property 
+
+* Topic endpoints are objects that define the `storage of messages` for a consuming application
+
+Topics have the format `a/b/c/.../n`, where `a, b, c` and so on to `n` are identifiers in a hierarchical scheme you've devised that allows you to classify your information.
+
+### SMF (Solace Message Format)
+
+* NULL-terminated UTF-8 strings 
+* `/` character is used as a separator between levels
+* maximum of 128 topic levels 
+* maximum length of a string, excluding the `NULL` terminator, is 250 bytes 
+* case-sensitive
+* `<NULL>` is an invalid character.
+* `*` is a single-level wildcard.  
+* `>` can be used as a wildcard, and is a multi-level wildcard (**one or more**)
+* leading `!` indicates a subscription exception
+* avoid using `*`  and `>` 
+
+### Topics are Part of the Message Header
+
+Topics as destinations : the message's destination is a topic
+
+Mixed topics in a message stream : A single publisher isn't limited to publishing to a single topic.
+
+### Topics on the Event Broker
+
+* Any topic endpoints whose topic subscriptions match the topics on the incoming messages will receive those messages.
+* queues that have been configured with topic subscriptions will receive messages with matching topics
+* any of the event broker's clients that have been configured with topic subscriptions will receive messages with matching topics
+
 
 
 ## Endpoints and Queues
 
+In most scenarios the queue endpoint is a superset of the topic  endpoint, and is the endpoint most commonly used. Topic endpoints are  used by JMS (that is, durable topic subscriptions).
 
+![](./endpoint.png)
 
+Queues' lifecycles : durable or non-durable. 
 
+### Topic-to-Queue Mapping
 
-Endpoints:
+In addition to spooling published Guaranteed messages that have a  **matching queue destination**, it's possible to add **one or more topic  subscriptions** to a durable queue
 
-Queues are significantly more flexible than topic endpoints and are the **recommended approach for most applications**. 
+This feature enables queues to participate equally in **point-to-point** and **publish/subscribe** messaging models
 
-The use of topic endpoints should be restricted to JMS applications.
+### Adding Topic Subscriptions to Queues
+
+```
+solace(configure/message-spool/queue)# subscription topic <topic>
+```
+
+### Adding Topic Subscription Exceptions to Queues
+
+```
+solace(configure/message-spool/queue)# subscription topic !<topic>
+```
+
+### Enabling / Disabling Client Access to Queues
+
+```
+solace(configure/message-spool/queue)# no shutdown [ingress | egress | full]
+```
+
+```
+solace(configure/message-spool/queue)# shutdown [ingress | egress | full]
+```
