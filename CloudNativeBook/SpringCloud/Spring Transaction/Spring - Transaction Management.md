@@ -1,5 +1,37 @@
 [TOC]
+<!-- TOC -->
 
+- [Spring - Transaction Management](#spring---transaction-management)
+  - [事务介绍](#事务介绍)
+  - [优点](#优点)
+  - [Spring 事务的核心类](#spring-事务的核心类)
+    - [**PlatformTransactionManager事务管理器(核心)**](#platformtransactionmanager事务管理器核心)
+    - [ReactiveTransactionManager反应式事务管理器](#reactivetransactionmanager反应式事务管理器)
+    - [TransactionDefinition定义事务基本属性](#transactiondefinition定义事务基本属性)
+      - [事务隔离级别](#事务隔离级别)
+      - [事务传播行为](#事务传播行为)
+      - [事务超时属性(一个事务允许执行的最长时间)](#事务超时属性一个事务允许执行的最长时间)
+      - [事务只读属性（对事物资源是否执行只读操作）](#事务只读属性对事物资源是否执行只读操作)
+      - [回滚规则（定义事务回滚规则）](#回滚规则定义事务回滚规则)
+    - [TransactionStatus为事务代码提供了一种控制事务执行和查询事务状态的简单方法](#transactionstatus为事务代码提供了一种控制事务执行和查询事务状态的简单方法)
+  - [编程式事务](#编程式事务)
+    - [使用`TransactionTemplate`](#使用transactiontemplate)
+    - [使用`TransactionalOperator`](#使用transactionaloperator)
+    - [使用`TransactionManager`](#使用transactionmanager)
+    - [使用`ReactiveTransactionManager`](#使用reactivetransactionmanager)
+  - [声明式事务](#声明式事务)
+    - [声明式事务的四种方式](#声明式事务的四种方式)
+    - [声明式事务实现示例](#声明式事务实现示例)
+    - [回滚声明式事务](#回滚声明式事务)
+    - [<tx: advice/>设置](#tx-advice设置)
+    - [使用`@Transactional`](#使用transactional)
+      - [**`@Transactional` 的作用范围**](#transactional-的作用范围)
+      - [**`@Transactional` 的常用配置参数总结**](#transactional-的常用配置参数总结)
+      - [多个 事务管理器](#多个-事务管理器)
+  - [声明式事务和编程式事务之间的选择](#声明式事务和编程式事务之间的选择)
+  - [参考](#参考)
+
+<!-- /TOC -->
 
 
 # Spring - Transaction Management
